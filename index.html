@@ -1,29 +1,4 @@
-const fs = require("fs");
-const util = require("util");
-const inquirer = require("inquirer");
-const axios = require("axios");
-const writeFileAsync = util.promisify(fs.writeFile);
-const questions = [
-   
-  {
-    type: "input",
-    message: "What is your name?",
-    name: "name"
-  },
-  {
-    type: "input",
-    message: "What is your GitHub username?",
-    name: "username"
-  },
-  {
-    type: "input",
-    message: "What is your favorite color?",
-    name: "color"
-  }
-];
-function generateHTML(userInput, res, getStars) {
- 
-  return ` <!DOCTYPE html>
+ <!DOCTYPE html>
     <html lang="en">
        <head>
           <meta charset="UTF-8" />
@@ -167,34 +142,34 @@ function generateHTML(userInput, res, getStars) {
        <body>
           <div class="wrapper">
              <div class="photo-header">
-                <img src=${res.data.avatar_url} alt="Photo of ${res.data.name}" />
+                <img src=https://avatars1.githubusercontent.com/u/56275705?v=4 alt="Photo of Kondali Kangha" />
                 <h1>Hi!</h1>
                 <h2>
-                My name is ${res.data.name}!</h1>
+                My name is Kondali Kangha!</h1>
                 <h5></h5>
                 <nav class="links-nav">
-                   <a class="nav-link" target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/place/${res.data.location}"><i class="fas fa-location-arrow"></i> ${res.data.location}</a>
-                   <a class="nav-link" target="_blank" rel="noopener noreferrer" href="${res.data.html_url}"><i class="fab fa-github-alt"></i> GitHub</a>        
+                   <a class="nav-link" target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/place/Tempe, AZ"><i class="fas fa-location-arrow"></i> Tempe, AZ</a>
+                   <a class="nav-link" target="_blank" rel="noopener noreferrer" href="https://github.com/kdavid00"><i class="fab fa-github-alt"></i> GitHub</a>        
                 </nav>
              </div>
              <main>
                 <div class="container">
                 <div class="row">
                    <div class="col">
-                      <h3>${res.data.bio} </h3>
+                      <h3>I am a Full Stack Developer and US NAVY veteran. </h3>
                    </div>
                    </div>
                    <div class="row">
                    <div class="col">
                       <div class="card">
                         <h3>Public Repositories</h3>
-                        <h4>${res.data.public_repos}</h4>
+                        <h4>12</h4>
                       </div>
                    </div>
                     <div class="col">
                     <div class="card">
                       <h3>Followers</h3>
-                      <h4>${res.data.followers}</h4>
+                      <h4>5</h4>
                     </div>
                    </div>
                    </div>
@@ -202,13 +177,13 @@ function generateHTML(userInput, res, getStars) {
                    <div class="col">
                    <div class="card">
                       <h3>GitHub Stars</h3>
-                      <h4>${getStars}</h4>
+                      <h4>undefined</h4>
                       </div>
                    </div>
                     <div class="col">
                     <div class="card">
                       <h3>Following</h3>
-                      <h4>${res.data.following}</h4>
+                      <h4>6</h4>
                       </div>
                    </div>
                    </div>
@@ -216,36 +191,4 @@ function generateHTML(userInput, res, getStars) {
              </main>
           </div>
        </body>
-    </html>`;
-}
-function getStars(userInput){
-  const queryUrl = `https://api.github.com/users/${userInput.username}/repos?client_id=${process.env.CLIENT_ID}&client_secret=${process.env.CLIENT_SECRET}`;
-  axios.get(queryUrl).then(function(res) {
-   
-   let totalStars = 0;
-   for (var i = 0; i < res.data.length; i ++){
-     totalStars = totalStars + res.data[i].stargazers_count;
-   }
-   return totalStars;
- 
-  });
-}
-async function promptUser() {
-  let info = [ ];
-  userInput = await inquirer.prompt(questions);
-  info.push(userInput)
-  console.log(info);
-  getStars(userInput);
-  
-  
-  const CLIENT_ID = "Iv1.58a221594db896a7";
-  const CLIENT_SECRET = "ec9d0d86435af2863130af950728312a20dd8d73";
-  const queryUrl = `https://api.github.com/users/${userInput.username}?client_id=${process.env.CLIENT_ID}&client_secret=${process.env.CLIENT_SECRET}`;
-  axios.get(queryUrl).then(function(res) {
-  
-    const html = generateHTML(userInput, res, getStars(userInput));
-    writeFileAsync("index.html", html);
-  });
-}
-promptUser();
-
+    </html>
